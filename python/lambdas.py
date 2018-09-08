@@ -3,10 +3,12 @@ Y = lambda M : (lambda f : M (lambda a : (f(f))(a)))(lambda f : M (lambda a : (f
 
 count = lambda x : 0 if x == 0 else count(x-1)+1
 lcount = Y(lambda rf : (lambda x : 0 if x == 0 else rf(x-1)+1))
+Y(lambda rf : (lambda x : 0 if x == 0 else rf(x-1)+1))(10) # => 10
 
 F = lambda r : lambda x : 1 if x == 0 else r(x-1) * x
 fact = Y(F)
 fact(4) # => 24
+Y(lambda r : lambda x : 1 if x == 0 else r(x-1) * x)(4) # => 24
 
 ##############
 
