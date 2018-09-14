@@ -1,17 +1,4 @@
 
-Y = lambda M : (lambda f : M (lambda a : (f(f))(a)))(lambda f : M (lambda a : (f(f))(a)))
-
-count = lambda x : 0 if x == 0 else count(x-1)+1
-lcount = Y(lambda rf : (lambda x : 0 if x == 0 else rf(x-1)+1))
-Y(lambda rf : (lambda x : 0 if x == 0 else rf(x-1)+1))(10) # => 10
-
-F = lambda r : lambda x : 1 if x == 0 else r(x-1) * x
-fact = Y(F)
-fact(4) # => 24
-Y(lambda r : lambda x : 1 if x == 0 else r(x-1) * x)(4) # => 24
-
-##############
-
 def f():
 	return 1
 f() # => 1
@@ -75,3 +62,43 @@ map(lambda x,y:x+y, a,b) # => [18, 14, 14, 14]
 map(lambda x,y,z:x+y+z, a,b,c) # => [17, 10, 19, 23]
 
 reduce(lambda x,y: x+y, [47,11,42,13]) # => 113
+
+##############
+
+def fact(x):
+	return 1 if x == 0 else fact(x-1) * x
+
+fact = lambda x : 1 if x == 0 else fact(x-1) * x
+# Either way:
+fact(5) # => 120
+
+# Let's use an extra argument, when applied to anything it returns a function like fact
+# But the recursion keeps applying the dummy r
+fact_maker = lambda r : lambda x : 1 if x == 0 else fact_maker(r)(x-1) * x 
+fact = fact_maker('foo')
+fact(5) # => 120
+
+# Could we apply fact_maker to itself? Sure, the arg does nothing (yet)
+fact = fact_maker(fact_maker)
+fact(5) # => 120
+
+# This way, the recursion above also looks like fact_maker(fact_maker)
+# And we can just use r(r) as the recursion, as long as we call it with fact_maker(fact_maker) originally:
+fact_maker_maker = lambda r : lambda x : 1 if x == 0 else r(r)(x-1) * x
+fact = fact_maker_maker(fact_maker_maker)
+fact(5) # => 120
+
+# So, now we have lost the bound name in the recursion, and we only use args
+
+##############
+
+Y = lambda M : (lambda f : M (lambda a : (f(f))(a)))(lambda f : M (lambda a : (f(f))(a)))
+
+count = lambda x : 0 if x == 0 else count(x-1)+1
+lcount = Y(lambda rf : (lambda x : 0 if x == 0 else rf(x-1)+1))
+Y(lambda rf : (lambda x : 0 if x == 0 else rf(x-1)+1))(10) # => 10
+
+F = lambda r : lambda x : 1 if x == 0 else r(x-1) * x
+fact = Y(F)
+fact(4) # => 24
+Y(lambda r : lambda x : 1 if x == 0 else r(x-1) * x)(4) # => 24
