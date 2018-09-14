@@ -28,7 +28,7 @@ g = lambda x : h(x)+1
 g(3) # => NameError: global name 'h' is not defined
 
 g = lambda x : f()+1
-g(3) # => 2, f was defined above
+g(3) # => 2, f was defined above; arg not used
 
 h = lambda x : g(x) + x
 h(4) # => 6
@@ -45,6 +45,10 @@ f = lambda x : lambda y : x*y
 f(3,5) # => TypeError: <lambda>() takes exactly 1 argument (2 given)
 f(3) # => <function <lambda> at 0x1034eb668>
 f(3)(5) # => 15
+
+##############
+
+(lambda x,y : x*y)(3,5) # => 15, truly anonymous, no function names
 
 ##############
 
