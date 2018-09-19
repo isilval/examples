@@ -147,7 +147,7 @@ Y(lambda r : lambda x : 1 if x == 0 else r(x-1) * x)(5) # => 120
 def count(x):
 	return  0 if x == 0 else count(x-1)+1
 
-# Redefine count with calling itself
+# Redefine count without calling itself
 
 # First, count can also be defined as:
 count = lambda x : 0 if x == 0 else count(x-1)+1
