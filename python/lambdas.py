@@ -17,11 +17,11 @@ g(3) # => NameError: global name 'h' is not defined
 g = lambda x : f()+1
 g(3) # => 2, f was defined above; arg not used
 
-h = lambda x : g(x) + x
-h(4) # => 6
+j = lambda x : g(x) + x
+j(4) # => 6
 
-h = lambda y : g(x) + y
-h(4) # => 6, arg name does not make a difference
+j = lambda y : g(y) + y
+j(4) # => 6, arg name does not make a difference
 
 ##############
 
