@@ -76,6 +76,9 @@ fact = lambda x : 1 if x == 0 else fact(x-1) * x
 # Either way:
 fact(5) # => 120
 
+# What if I wanted to do:
+(lambda x : 1 if x == 0 else fact(x-1) * x)(5) # where fact is not defined yet?
+
 # Let's use an extra argument that, when applied to anything, returns a function like fact
 fact_maker = lambda f : lambda x : 1 if x == 0 else fact_maker(f)(x-1) * x # But the recursion keeps applying the dummy f
 fact = fact_maker('foo')
