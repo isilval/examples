@@ -67,6 +67,8 @@ map(lambda x,y,z:x+y+z, a,b,c) # => [17, 10, 19, 23]
 
 reduce(lambda x,y: x+y, [47,11,42,13]) # => 113
 
+reduce(lambda x,y,z : x+y+z,[47,11,42,13,28]) # => TypeError: <lambda>() takes exactly 3 arguments (2 given)
+
 ##############
 
 def fact(x):
