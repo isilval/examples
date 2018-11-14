@@ -43,6 +43,17 @@ f(3)(5) # => 15
 
 ##############
 
+# Also:
+(lambda y: (lambda x: x+1)(y))
+# is the same as:
+(lambda y: (lambda f: f(y))(lambda x: x+1)) # why?
+
+# we have abstracted out (lambda x: x+1), right?
+# I have (lambda y : f(y)), where f = lambda x: x+1
+# So then I can say (lambda y : (lambda g : g(y))(f))
+
+##############
+
 f = lambda g,x : g(x)
 f(lambda y : y+2,3) # => 5, a whole function passed in, not an evaluation
 
